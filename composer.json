@@ -1,0 +1,24 @@
+{
+    "name": "nelmio/esi-debug-bundle",
+    "description": "Shows you caching information around ESI requests for debugging purposes",
+    "keywords": ["esi", "debugging"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nelmio",
+            "homepage": "http://nelm.io"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://github.com/nelmio/NelmioEsiDebugBundle/contributors"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": ">=2.0.*,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": { "Nelmio\\EsiDebugBundle": "" }
+    },
+    "target-dir": "Nelmio/EsiDebugBundle"
+}
