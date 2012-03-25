@@ -23,7 +23,7 @@ class Kernel
 
         // Exclude render tags in the WDT and Profiler
         $controller = $request->attributes->get('_controller');
-        if (null !== $controller && 'WebProfilerBundle' === substr($controller, 0, 17)) {
+        if ($controller && 'WebProfilerBundle' === substr($controller, 0, 17)) {
              return;
         }
 
