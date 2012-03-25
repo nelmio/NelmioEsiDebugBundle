@@ -19,19 +19,22 @@ class Kernel
     public function onKernelResponse(FilterResponseEvent $event)
     {
         $response = $event->getResponse();
+        $request  = $event->getRequest();
 
-        // skip web debug toolbar
-        if ('_wdt' === $event->getRequest()->attributes->get('_route')) {
-            return;
+        // Exclude render tags in the WDT and Profiler
+        $controller = $request->attributes->get('_controller');
+        if ($controller && 'WebProfilerBundle' === substr($controller, 0, 17)) {
+             return;
         }
 
-        // skip non-html responses
+        // Do not highlight master responses that are not HTML based
         $contentType = $response->headers->get('Content-Type');
-        if ($contentType && !preg_match('{^(text/html|application/xhtml+xml)\b}', $contentType)) {
+        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()
+            && $contentType
+            && !preg_match('{^(text/html|application/xhtml+xml)\b}', $contentType)) {
             return;
         }
 
-        // skip non-cacheable responses
         if (!$response->isCacheable()) {
             return;
         }

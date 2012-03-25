@@ -6,7 +6,7 @@
 
     <services>
         <service id="nelmio_esi_debug.kernel_listener" class="Nelmio\EsiDebugBundle\EventListener\Kernel">
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="-100" />
         </service>
 
         <service id="nelmio_esi_debug.data_collector" class="Nelmio\EsiDebugBundle\DataCollector\EsiDataCollector">
