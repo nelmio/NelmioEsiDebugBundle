@@ -20,26 +20,26 @@ class Kernel
     {
         $response = $event->getResponse();
 
+        // skip web debug toolbar
         if ('_wdt' === $event->getRequest()->attributes->get('_route')) {
             return;
         }
 
-        if (!preg_match('{^text/html\b}', $response->headers->get('Content-Type'))) {
+        // skip non-html responses
+        $contentType = $response->headers->get('Content-Type');
+        if ($contentType && !preg_match('{^(text/html|application/xhtml+xml)\b}', $contentType)) {
             return;
         }
 
-        $cc = $response->headers->get('cache-control');
-        if (!$cc) {
-            return;
-        }
-
-        if ('_internal' !== $event->getRequest()->attributes->get('_route') && 'no-cache' === $cc) {
+        // skip non-cacheable responses
+        if (!$response->isCacheable()) {
             return;
         }
 
         $response->setContent('<div class="esi-debug" style="border: 1px solid red !important;">'.
-            '<div style="background: red !important; display: block !important; position: fixed; color: #fff !important;" class="esi-debug-details">Rendered: '.date('Y-m-d H:i:s').' Cache-Control: '.$cc.'</div>'.
-            $response->getContent()
+            '<div style="background: red !important; display: block !important; position: fixed; color: #fff !important;" class="esi-debug-details">'.
+                'Rendered: '.date('Y-m-d H:i:s').' Cache-Control: '.$response->headers->get('cache-control').'</div>'.
+                $response->getContent()
             .'</div>'
         );
     }
