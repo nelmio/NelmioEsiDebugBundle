@@ -21,13 +21,13 @@ class Kernel
         $response = $event->getResponse();
         $request  = $event->getRequest();
 
-        // Exclude render tags in the WDT and Profiler
+        // exclude render tags in the WDT and Profiler
         $controller = $request->attributes->get('_controller');
         if ($controller && 'WebProfilerBundle' === substr($controller, 0, 17)) {
              return;
         }
 
-        // Do not highlight master responses that are not HTML based
+        // do not highlight master responses that are not HTML based
         $contentType = $response->headers->get('Content-Type');
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()
             && $contentType
@@ -35,6 +35,7 @@ class Kernel
             return;
         }
 
+        // skip non-cacheable responses
         if (!$response->isCacheable()) {
             return;
         }
