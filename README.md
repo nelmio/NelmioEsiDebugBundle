@@ -25,7 +25,7 @@ If you want to disable the wrapper divs without disabling the bundle, you can do
 
 Require the `nelmio/esi-debug-bundle` package in your composer.json and update your dependencies.
 
-    $ composer require nelmio/cors-bundle:*
+    $ composer require nelmio/esi-debug-bundle:*
 
 Add the NelmioEsiDebugBundle to your application's kernel:
 
