@@ -40,11 +40,42 @@ class Kernel
             return;
         }
 
-        $response->setContent('<div class="esi-debug" style="border: 1px solid red !important;">'.
-            '<div style="background: red !important; display: block !important; position: fixed; color: #fff !important;" class="esi-debug-details">'.
-                'Rendered: '.date('Y-m-d H:i:s').' Cache-Control: '.$response->headers->get('cache-control').'</div>'.
-                $response->getContent()
-            .'</div>'
-        );
+        $response->setContent(sprintf(
+            '
+                <div class="esi-debug">
+                    <div class="esi-debug-details">
+                       ESI: %s, Rendered: %s, Cache-Control: %s
+                    </div>
+                    %s
+                </div>
+
+                <style>
+                    .esi-debug {
+                        border: 1px solid red;
+                    }
+
+                    .esi-debug-details {
+                        background: red;
+                        position: absolute;
+                        color: white;
+                    }
+
+                    .esi-debug:hover {
+                        background: rgba(255, 0, 0, .25);
+                        border-color #CC0000;
+                        cursor: pointer;
+                    }
+
+                    .esi-debug:hover .esi-debug-details {
+                        background: #CC0000;
+                        z-index: 9999;
+                    }
+                </style>
+            ',
+            $event->getRequest()->getRequestUri(),
+            date('Y-m-d H:i:s'),
+            $response->headers->get('cache-control'),
+            $response->getContent()
+        ));
     }
 }
