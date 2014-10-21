@@ -25,31 +25,7 @@ If you want to disable the wrapper divs without disabling the bundle, you can do
 
 Require the `nelmio/esi-debug-bundle` package in your composer.json and update your dependencies.
 
-    $ composer require nelmio/esi-debug-bundle:*
-
-Add the NelmioEsiDebugBundle to your application's kernel:
-
-    public function registerBundles()
-    {
-        $bundles = array(
-            ...
-            new Nelmio\EsiDebugBundle\NelmioEsiDebugBundle(),
-            ...
-        );
-        ...
-    }
-
-## Installation (Symfony 2.0)
-
-Put the NelmioEsiDebugBundle into the ``vendor/bundles/Nelmio`` directory:
-
-    $ git clone git://github.com/nelmio/NelmioEsiDebugBundle.git vendor/bundles/Nelmio/EsiDebugBundle
-
-Register the `Nelmio` namespace in your project's autoload script (app/autoload.php):
-
-    $loader->registerNamespaces(array(
-        'Nelmio'                        => __DIR__.'/../vendor/bundles',
-    ));
+    $ composer require nelmio/esi-debug-bundle
 
 Add the NelmioEsiDebugBundle to your application's kernel:
 
